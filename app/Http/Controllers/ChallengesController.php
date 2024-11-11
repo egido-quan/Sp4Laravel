@@ -11,7 +11,7 @@ use App\Helpers\Marcador;
 class ChallengesController extends Controller
 {
     public function show($player_id) {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         $player = Player::where('id', $player_id)
         ->with('challenges_1')
         ->with('challenges_2')
@@ -55,7 +55,7 @@ class ChallengesController extends Controller
     }
 
     public function add() {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
 
         return view('challenges.add', ['players' => $players]);
         
@@ -63,17 +63,17 @@ class ChallengesController extends Controller
     }
 
     public function save(Request $request) {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         $message = match(true) {
             $request->player1_ranking === $request->player2_ranking => 'One player cannot challenge himself',
             abs($request->p1_set1 - $request->p2_set1) < 2 => 'First set result is not correct',
             abs($request->p1_set2 - $request->p2_set2) < 2 => 'Second set result is not correct',
             abs($request->player1_ranking - $request->player2_ranking) > 3 
-                => 'Cannot accept this challenge, sorry. A challenge is only allowed when ranking gap is 3 positions or lower',
+                => 'Cannot accept this challenge, sorry. A challenge is only allowed when ranking difference is 3 positions or lower',
             default => "OK",
         };
 
-        if ($request->p1_set3 != null || $request->p2_set3 != null) {  
+        if ($message === "OK" && ($request->p1_set3 != null || $request->p2_set3 != null)) {  
             $message = (abs($request->p1_set3 - $request->p2_set3) < 2) ? 'Third set result is not correct' : 'OK';
         }
 
@@ -116,6 +116,8 @@ class ChallengesController extends Controller
         $challenge->p2_set3 = ($request->p2_set3 == null) ? 0 : $request->p2_set3;
 
         $challenge->save();
+
+        $players = Player::orderBy('ranking')->get();
         
         return view('players.index', ['players' => $players]);      
 

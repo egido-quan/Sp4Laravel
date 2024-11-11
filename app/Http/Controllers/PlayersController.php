@@ -13,14 +13,14 @@ class PlayersController extends Controller
     }
 
     public function info() {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         return view('players.info', [
             'players' => $players
     ]);
     }
 
     public function player($ranking) {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         $player = Player::where('ranking', $ranking)->first();
         return view('players.player', [
             'player' => $player,
@@ -29,12 +29,12 @@ class PlayersController extends Controller
     }
 
     public function add() {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         return view('players.add', ['players' => $players]);
     }
 
     public function save(Request $request) {
-
+        $players = Player::orderBy('ranking')->get();
         $player = new Player;
 
         if (!Player::exists()) {
@@ -43,6 +43,14 @@ class PlayersController extends Controller
         $last_player = Player::orderBy('ranking', 'desc')->first();
         $ranking = $last_player->ranking;
         } 
+
+        if (Player::where('email', $request->email)->exists()) {
+            $message = "This email is already in use by another player";
+            return view('players.addError', [
+                'players' => $players,
+                'message' => $message
+            ]);
+        }
 
         $player->name = $request->name;
         $player->family_name = $request->family_name;
@@ -57,7 +65,7 @@ class PlayersController extends Controller
         //$player->updated_at = $request->playing_hand;
 
         $player->save();
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
 
         //return redirect ('/');
 
@@ -68,12 +76,12 @@ class PlayersController extends Controller
     ]);
         }
 
-        public function edit($id) {
-            $players = Player::all();
-            $player = Player::find($id);
-            return view('players.edit', [
-                'player' => $player,
-                'players' => $players
+    public function edit($id) {
+        $players = Player::orderBy('ranking')->get();
+        $player = Player::find($id);
+        return view('players.edit', [
+            'player' => $player,
+            'players' => $players
         ]);
         }
 
@@ -95,7 +103,7 @@ class PlayersController extends Controller
 
         $player->save();
 
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
 
         return view('players.player', [
             'player' => $player,
@@ -105,7 +113,7 @@ class PlayersController extends Controller
         //return redirect ('/player/{$player->ranking}');
         }
 
-        public function delete($player_id) {           
+    public function delete($player_id) {           
 
             $players = Player::orderBy('ranking', 'asc')->get();
             $player_to_delete = Player::find($player_id);
