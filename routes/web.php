@@ -9,6 +9,8 @@ use App\Models\Challenge;
 
 Route::get('/', [PlayersController::class, 'index']);
 Route::get('/info', [PlayersController::class, 'info']);
+Route::get('/player/find', [PlayersController::class, 'find']);
+Route::post('/player/find_results', [PlayersController::class, 'find_results']);
 
 Route::get('/player/add', [PlayersController::class, 'add']);
 Route::post('/player/save', [PlayersController::class, 'save']);

@@ -28,6 +28,30 @@ class PlayersController extends Controller
     ]);
     }
 
+    public function find() {
+        $players = Player::orderBy('ranking')->get();
+        return view('players.find', [
+            'players' => $players
+    ]);
+    }
+
+    public function find_results(Request $request) {
+
+        $players = Player::
+        where('name', 'like', '%' . $request->name . '%')
+        ->where('family_name', 'like', '%' . $request->family_name . '%')
+        ->where('email', 'like', '%' . $request->email . '%')
+        ->where('height', 'like', '%' . $request->height . '%')
+        ->where('playing_hand', 'like', '%' . $request->playing_hand . '%')  
+        ->where('backhand_style', 'like', '%' . $request->backhand_style . '%')
+        ->where('briefing', 'like', '%' . $request->briefing . '%')
+        ->get();
+        
+
+        return view('players.index', ['players' => $players]);
+        
+    }
+
     public function add() {
         $players = Player::orderBy('ranking')->get();
         return view('players.add', ['players' => $players]);

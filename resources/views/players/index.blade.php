@@ -13,7 +13,7 @@
                     +<img src="{{ asset('images/partido.png') }}"  width="40"> 
                 </button>
             </a>
-            <a href="">
+            <a href="{{asset('/')}}player/find">
                 <button type="button" class="my-10 text-white bg-blue-300 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-3xl px-5 py-2.5 me-2 mb-2">
                     <img src="{{ asset('images/lupa.png') }}" width="40">    
                 </button>
