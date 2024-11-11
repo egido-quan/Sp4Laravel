@@ -12,10 +12,16 @@ class PlayersController extends Controller
         return view('players.index', ['players' => $players]);
     }
 
+    public function info() {
+        $players = Player::all();
+        return view('players.info', [
+            'players' => $players
+    ]);
+    }
+
     public function player($ranking) {
         $players = Player::all();
         $player = Player::where('ranking', $ranking)->first();
-        //return $players;
         return view('players.player', [
             'player' => $player,
             'players' => $players

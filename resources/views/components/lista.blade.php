@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-    <title>Fotos</title>
+    <title>Tennis Challenge</title>
 </head>
 <body class="bg-blue-100">
-    <div class="flex w-full py-10  justify-center items-center space-x-16">
+    <div class="flex w-full py-5  justify-center items-center space-x-16">
         <a href="{{asset('/')}}"><img class="size-16 hover:scale-125" src="{{ asset('images/Titulo.svg') }}"></a>
-        <a href="{{asset('/')}}"><h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 hover:scale-125"> TENNIS CHALLENGE</h1></a>
+        <a href="{{asset('/')}}"><h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 hover:scale-125"> TENNIS CHALLENGE</h1></a>
     </div>
     <section class = "flex m-10 ">
         <div class="bg-gray-300 shadow-2xl h-3/5 w-3/5 p-10 mx-5 overflow-y-auto rounded-2xl">
@@ -39,8 +39,7 @@
                             @method('DELETE')
                             <button type="submit">
                                 <img class="size-5 hover:scale-150" src="{{ asset('images/borrar.png') }}">
-                            </button></form></td>
-                                
+                            </button></form></td>                                
                     </tr>
                 @endforeach
                 </tbody>
