@@ -2,9 +2,8 @@
 
         
       <x-lista :players="$players" />
-
         <div class="w-2/5 bg-blue-200 shadow-2xl h-auto p-10 mx-5 rounded-2xl flex flex-col items-center">
-            <form class="w-full max-w-sm"  id="nuevo" name="nuevo" method="POST"  action="{{asset('/')}}save" autocomplete="off">
+            <form class="w-full max-w-sm"  id="nuevo" name="nuevo" method="POST"  action="{{asset('/')}}player/save" autocomplete="off">
                 @csrf
                 <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
