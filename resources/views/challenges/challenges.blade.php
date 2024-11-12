@@ -19,9 +19,9 @@
             <td class="px-2 py-1">{{$challenge[10]}}</td>
             <td class="px-2 py-1">{{$challenge[0]}}</td>
             <td class="px-2 py-1"> {{$challenge[1]}}</td>
-            <td class="px-2 py-1"> {{$challenge[4]}} -  {{$challenge[5]}}</td>
-            <td class="px-2 py-1"> {{$challenge[6]}} -  {{$challenge[7]}}</td>
-            <td class="px-2 py-1"> {{$challenge[8]}} -  {{$challenge[9]}}</td>
+            <td class="px-2 py-1"> {{$challenge[4]}} - {{$challenge[7]}}</td>
+            <td class="px-2 py-1"> {{$challenge[5]}} - {{$challenge[8]}}</td>
+            <td class="px-2 py-1"> {{$challenge[6]}} - {{$challenge[9]}}</td>
             <td class="px-2 py-1">{{$challenge[2]}}</td>
             <td class="px-2 py-1"> {{$challenge[3]}}</td>
 

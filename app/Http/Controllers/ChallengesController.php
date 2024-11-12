@@ -13,7 +13,7 @@ class ChallengesController extends Controller
     public function show($player_id) {
         $players = Player::orderBy('ranking')->get();
         $player = Player::where('id', $player_id)
-        ->with('challenges_1')
+        ->with('challenges_1') //Tengo que mirar si el jugador está en el campo player_1 o player_2
         ->with('challenges_2')
         ->first();
 
@@ -22,20 +22,32 @@ class ChallengesController extends Controller
             $ch1 = $player->challenges_1;
             for ($i = 0; $i < count($ch1); $i++) {
                 $other_player_id = ($player_id == $ch1[$i]["player1_id"]) ? $ch1[$i]["player2_id"] : $ch1[$i]["player1_id"];
-                $challenges[] =
-                [$player->name, $player->family_name,
-                Player::where('id', $other_player_id)->value('name'),
-                Player::where('id', $other_player_id)->value('family_name'),
-                $ch1[$i]["p1_set1"], $ch1[$i]["p1_set2"], $ch1[$i]["p1_set3"], 
-                $ch1[$i]["p2_set1"], $ch1[$i]["p2_set2"], $ch1[$i]["p2_set3"],
-                $ch1[$i]["created_at"]->format('d-m-Y')
-                ];
+                if ($other_player_id == $ch1[$i]["player2_id"]) {
+                    $challenges[] =
+                    [$player->name, $player->family_name,
+                    Player::where('id', $other_player_id)->value('name'),
+                    Player::where('id', $other_player_id)->value('family_name'),
+                    $ch1[$i]["p1_set1"], $ch1[$i]["p1_set2"], $ch1[$i]["p1_set3"], 
+                    $ch1[$i]["p2_set1"], $ch1[$i]["p2_set2"], $ch1[$i]["p2_set3"],
+                    $ch1[$i]["created_at"]->format('d-m-Y')
+                    ];
+                } else { //Tengo que saber si el jugador es player_1 o player_2 para poner bien el orden en el resultado
+                    $challenges[] =
+                    [Player::where('id', $other_player_id)->value('name'),
+                    Player::where('id', $other_player_id)->value('family_name'),
+                    $player->name, $player->family_name,
+                    $ch1[$i]["p1_set1"], $ch1[$i]["p1_set2"], $ch1[$i]["p1_set3"], 
+                    $ch1[$i]["p2_set1"], $ch1[$i]["p2_set2"], $ch1[$i]["p2_set3"],
+                    $ch1[$i]["created_at"]->format('d-m-Y')
+                    ];
+                }
             }
         }
         if (count($player->challenges_2) > 0) {
             $ch2 = $player->challenges_2;
             for ($i = 0; $i < count($ch2); $i++) {
                 $other_player_id = ($player_id == $ch2[$i]["player1_id"]) ? $ch2[$i]["player2_id"] : $ch2[$i]["player1_id"];
+                if ($other_player_id == $ch2[$i]["player2_id"]) {
                 $challenges[$i] =
                 [$player->name, $player->family_name,
                 Player::where('id', $other_player_id)->value('name'),
@@ -44,6 +56,16 @@ class ChallengesController extends Controller
                 $ch2[$i]["p2_set1"], $ch2[$i]["p2_set2"], $ch2[$i]["p2_set3"],
                 $ch2[$i]["created_at"]->format('d-m-Y')
                 ];
+            } else {
+                $challenges[$i] =
+                [Player::where('id', $other_player_id)->value('name'),
+                Player::where('id', $other_player_id)->value('family_name'),
+                $player->name, $player->family_name,
+                $ch2[$i]["p1_set1"], $ch2[$i]["p1_set2"], $ch2[$i]["p1_set3"], 
+                $ch2[$i]["p2_set1"], $ch2[$i]["p2_set2"], $ch2[$i]["p2_set3"],
+                $ch2[$i]["created_at"]->format('d-m-Y')
+                ];
+                }
             }
         }        
 
@@ -63,6 +85,7 @@ class ChallengesController extends Controller
     }
 
     public function save(Request $request) {
+
         $players = Player::orderBy('ranking')->get();
         $message = match(true) {
             $request->player1_ranking === $request->player2_ranking => 'One player cannot challenge himself',
@@ -93,10 +116,10 @@ class ChallengesController extends Controller
         }
 
         $score = [$request->p1_set1, $request->p2_set1, $request->p1_set2, $request->p2_set2, $p1_set3, $p2_set3];
-        $marcador = new Marcador($score, $request->player1_ranking, $request->player1_ranking);
+        $marcador = new Marcador($score, $request->player1_ranking, $request->player2_ranking);
         $player1 = Player::where('ranking', $request->player1_ranking)->first();
         $player2 = Player::where('ranking', $request->player2_ranking)->first();
-        if ($marcador->ganador() == min($request->player1_ranking, $request->player2_ranking)) {
+        if ($marcador->ganador() == max($request->player1_ranking, $request->player2_ranking)) {
             $player1->ranking = $request->player2_ranking;
             $player1->save();
             $player2->ranking = $request->player1_ranking;
