@@ -1,7 +1,7 @@
-#TENNIS CHALLENGE
+# TENNIS CHALLENGE
 
 
-##OBJECTIVES
+## OBJECTIVES
 
 Tennis Challenge is a wonderful tournament very easy to implement at any tennis club. Players can challenge each other
 (with certain rules) and the results of those matches feed the ranking.                  
@@ -12,7 +12,7 @@ be organized in order to deliver some trophies (fairplay, rocky, top ranking, ..
 - Introduce club players to competition
 
 
-##RULES
+## RULES
 
 All matches will be arranged and scored by the players themselves. Fair play spirit must alway be present.
 In case of any kind of conflict, the tournament referee will take the decision. Rules:
