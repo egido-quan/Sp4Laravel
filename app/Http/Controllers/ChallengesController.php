@@ -10,6 +10,8 @@ use App\Helpers\Marcador;
 
 class ChallengesController extends Controller
 {
+ 
+
     public function show($player_id) {
         $players = Player::orderBy('ranking')->get();
         $player = Player::where('id', $player_id)
@@ -18,62 +20,49 @@ class ChallengesController extends Controller
         ->first();
 
         $challenges = [];
-        if (count($player->challenges_1) > 0) {
-            $ch1 = $player->challenges_1;
-            for ($i = 0; $i < count($ch1); $i++) {
-                $other_player_id = ($player_id == $ch1[$i]["player1_id"]) ? $ch1[$i]["player2_id"] : $ch1[$i]["player1_id"];
-                if ($other_player_id == $ch1[$i]["player2_id"]) {
-                    $challenges[] =
-                    [$player->name, $player->family_name,
-                    Player::where('id', $other_player_id)->value('name'),
-                    Player::where('id', $other_player_id)->value('family_name'),
-                    $ch1[$i]["p1_set1"], $ch1[$i]["p1_set2"], $ch1[$i]["p1_set3"], 
-                    $ch1[$i]["p2_set1"], $ch1[$i]["p2_set2"], $ch1[$i]["p2_set3"],
-                    $ch1[$i]["created_at"]->format('d-m-Y')
-                    ];
-                } else { //Hay que saber si el jugador es player_1 o player_2 para poner bien el orden en el resultado
-                    $challenges[] =
-                    [Player::where('id', $other_player_id)->value('name'),
-                    Player::where('id', $other_player_id)->value('family_name'),
-                    $player->name, $player->family_name,
-                    $ch1[$i]["p1_set1"], $ch1[$i]["p1_set2"], $ch1[$i]["p1_set3"], 
-                    $ch1[$i]["p2_set1"], $ch1[$i]["p2_set2"], $ch1[$i]["p2_set3"],
-                    $ch1[$i]["created_at"]->format('d-m-Y')
-                    ];
-                }
-            }
-        }
-        if (count($player->challenges_2) > 0) {
-            $ch2 = $player->challenges_2;
-            for ($i = 0; $i < count($ch2); $i++) {
-                $other_player_id = ($player_id == $ch2[$i]["player1_id"]) ? $ch2[$i]["player2_id"] : $ch2[$i]["player1_id"];
-                if ($other_player_id == $ch2[$i]["player2_id"]) {
-                $challenges[$i] =
-                [$player->name, $player->family_name,
-                Player::where('id', $other_player_id)->value('name'),
-                Player::where('id', $other_player_id)->value('family_name'),
-                $ch2[$i]["p1_set1"], $ch2[$i]["p1_set2"], $ch2[$i]["p1_set3"], 
-                $ch2[$i]["p2_set1"], $ch2[$i]["p2_set2"], $ch2[$i]["p2_set3"],
-                $ch2[$i]["created_at"]->format('d-m-Y')
-                ];
-            } else {
-                $challenges[$i] =
-                [Player::where('id', $other_player_id)->value('name'),
-                Player::where('id', $other_player_id)->value('family_name'),
-                $player->name, $player->family_name,
-                $ch2[$i]["p1_set1"], $ch2[$i]["p1_set2"], $ch2[$i]["p1_set3"], 
-                $ch2[$i]["p2_set1"], $ch2[$i]["p2_set2"], $ch2[$i]["p2_set3"],
-                $ch2[$i]["created_at"]->format('d-m-Y')
-                ];
-                }
-            }
-        }        
 
-    //return $challenges;
+        $challenges = self::challenges($player->challenges_1, $player, $challenges);
+
+        $challenges = self::challenges($player->challenges_2, $player, $challenges);
+
         return view('challenges.challenges', [
             'players' => $players,
             'challenges' => $challenges
         ]);
+    }
+
+
+    protected function challenges($playerChallenges, $player, $challenges) {
+
+        if (count($playerChallenges) > 0) {
+            $ch = $playerChallenges;
+            for ($i = 0; $i < count($ch); $i++) {
+                $other_player_id = ($player->id == $ch[$i]["player1_id"]) ? $ch[$i]["player2_id"] : $ch[$i]["player1_id"];
+                if ($other_player_id == $ch[$i]["player2_id"]) {
+                    $challenges = self::challengesArray($ch[$i], $player->name, $player->family_name,
+                    Player::where('id', $other_player_id)->value('name'), Player::where('id', $other_player_id)->value('family_name'), $challenges);
+
+                } else { 
+                    $challenges = self::challengesArray($ch[$i], Player::where('id', $other_player_id)->value('name'),
+                    Player::where('id', $other_player_id)->value('family_name'), $player->name, $player->family_name,  $challenges);
+                }
+            }
+        }  
+
+        return $challenges;
+    }
+    
+    protected function challengesArray($ch, $p1_name, $p1_f_name, $p2_name, $p2_f_name, $challenges) {
+
+        $challenges[] = [
+        $p1_name, $p1_f_name,
+        $p2_name, $p2_f_name,
+        $ch["p1_set1"], $ch["p1_set2"], $ch["p1_set3"], 
+        $ch["p2_set1"], $ch["p2_set2"], $ch["p2_set3"],
+        $ch["created_at"]->format('d-m-Y')
+        ];
+                    
+        return $challenges;
     }
 
     public function add() {
