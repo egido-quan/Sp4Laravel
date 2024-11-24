@@ -10,7 +10,7 @@
 </head>
 <body class="bg-blue-100">
     <div class="flex w-full py-5  justify-center items-center space-x-16">
-        <a href="{{asset('/')}}"><img class="size-16 hover:scale-125" src="{{ asset('images/Titulo.svg') }}"></a>
+        <a title="home" href="{{asset('/')}}"><img class="size-16 hover:scale-125" src="{{ asset('images/Titulo.svg') }}"></a>
         <a href="{{asset('/')}}"><h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 hover:scale-125"> TENNIS CHALLENGE</h1></a>
     </div>
     <section class = "flex m-10">
@@ -27,17 +27,17 @@
                 <tbody>
                 @foreach ($players as $player)
                     <tr class="">
-                        <td class="text-xl font-bold px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->ranking}}</a></td>
-                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->name}}</a></td>
-                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->family_name}}</a></td>
-                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}/show"><img src="{{ asset($player->picture_route) }}" class="h-10 w-10 rounded-lg"></a></td>
+                        <td class="text-xl font-bold px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->ranking}}</a></td>
+                        <td class="px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->name}}</a></td>
+                        <td class="px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->family_name}}</a></td>
+                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}/show" ><img title="player info" class="h-10 w-10 hover:scale-125 rounded-lg" src="{{ asset($player->picture_route) }}"></a></td>
 
-                        <td class="px-2 py-1"><a href="{{asset('/')}}challenges/{{$player->id}}/show"><img class="size-7 hover:scale-150" src="{{ asset('images/partido.png') }}"></a></td>
-                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->id}}/edit"><img class="size-5 hover:scale-150" src="{{ asset('images/modificar.png') }}"></a></td>
+                        <td class="px-2 py-1"><a href="{{asset('/')}}challenges/{{$player->id}}/show"><img title="show challenges" class="size-7 hover:scale-150" src="{{ asset('images/partido.png') }}"></a></td>
+                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->id}}/edit" ><img title="edit" class="size-5 hover:scale-150" src="{{ asset('images/modificar.png') }}"></a></td>
                         <td class="px-2 py-1"><form action="{{asset('/')}}player/{{$player->id}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">
+                            <button title="delete" type="submit">
                                 <img class="size-5 hover:scale-150" src="{{ asset('images/borrar.png') }}">
                             </button></form></td>                                
                     </tr>
