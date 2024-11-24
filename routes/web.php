@@ -8,15 +8,20 @@ use App\Models\Player;
 use App\Models\Challenge;
 
 Route::get('/', [PlayersController::class, 'index']);
+Route::get('/info', [PlayersController::class, 'info']);
+Route::get('/player/find', [PlayersController::class, 'find']);
+Route::post('/player/find_results', [PlayersController::class, 'find_results']);
 
 Route::get('/player/add', [PlayersController::class, 'add']);
-Route::post('/save', [PlayersController::class, 'save']);
+Route::post('/player/save', [PlayersController::class, 'save']);
 Route::get('/player/{id}/edit', [PlayersController::class, 'edit']);
 Route::put('/player/{id}', [PlayersController::class, 'update']);
 Route::delete('/player/{id}', [PlayersController::class, 'delete']);
 Route::get('/player/{ranking}/show', [PlayersController::class, 'player']);
 
 Route::get('/challenges/{player_id}/show', [ChallengesController::class, 'show']);
+Route::get('/challenges/add', [ChallengesController::class, 'add']);
+Route::post('/challenges/save', [ChallengesController::class, 'save']);
 
 
 Route::get('/prueba', function (){

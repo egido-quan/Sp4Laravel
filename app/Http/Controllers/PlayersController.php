@@ -12,23 +12,53 @@ class PlayersController extends Controller
         return view('players.index', ['players' => $players]);
     }
 
+    public function info() {
+        $players = Player::orderBy('ranking')->get();
+        return view('players.info', [
+            'players' => $players
+    ]);
+    }
+
     public function player($ranking) {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         $player = Player::where('ranking', $ranking)->first();
-        //return $players;
         return view('players.player', [
             'player' => $player,
             'players' => $players
     ]);
     }
 
+    public function find() {
+        $players = Player::orderBy('ranking')->get();
+        return view('players.find', [
+            'players' => $players
+    ]);
+    }
+
+    public function find_results(Request $request) {
+
+        $players = Player::
+        where('name', 'like', '%' . $request->name . '%')
+        ->where('family_name', 'like', '%' . $request->family_name . '%')
+        ->where('email', 'like', '%' . $request->email . '%')
+        ->where('height', 'like', '%' . $request->height . '%')
+        ->where('playing_hand', 'like', '%' . $request->playing_hand . '%')  
+        ->where('backhand_style', 'like', '%' . $request->backhand_style . '%')
+        ->where('briefing', 'like', '%' . $request->briefing . '%')
+        ->get();
+        
+
+        return view('players.index', ['players' => $players]);
+        
+    }
+
     public function add() {
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
         return view('players.add', ['players' => $players]);
     }
 
     public function save(Request $request) {
-
+        $players = Player::orderBy('ranking')->get();
         $player = new Player;
 
         if (!Player::exists()) {
@@ -38,6 +68,14 @@ class PlayersController extends Controller
         $ranking = $last_player->ranking;
         } 
 
+        if (Player::where('email', $request->email)->exists()) {
+            $message = "This email is already in use by another player";
+            return view('players.addError', [
+                'players' => $players,
+                'message' => $message
+            ]);
+        }
+
         $player->name = $request->name;
         $player->family_name = $request->family_name;
         $player->ranking = $ranking + 1;
@@ -46,12 +84,13 @@ class PlayersController extends Controller
         $player->playing_hand = $request->playing_hand; 
         $player->backhand_style = $request->backhand_style;
         $player->briefing = $request->briefing;
-        $player->picture_route = "images/$request->picture";
+        $picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
+        $player->picture_route = $picture_path;
         //$player->created_at = $request->playing_hand;
         //$player->updated_at = $request->playing_hand;
 
         $player->save();
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
 
         //return redirect ('/');
 
@@ -62,12 +101,12 @@ class PlayersController extends Controller
     ]);
         }
 
-        public function edit($id) {
-            $players = Player::all();
-            $player = Player::find($id);
-            return view('players.edit', [
-                'player' => $player,
-                'players' => $players
+    public function edit($id) {
+        $players = Player::orderBy('ranking')->get();
+        $player = Player::find($id);
+        return view('players.edit', [
+            'player' => $player,
+            'players' => $players
         ]);
         }
 
@@ -89,7 +128,7 @@ class PlayersController extends Controller
 
         $player->save();
 
-        $players = Player::all();
+        $players = Player::orderBy('ranking')->get();
 
         return view('players.player', [
             'player' => $player,
@@ -99,7 +138,7 @@ class PlayersController extends Controller
         //return redirect ('/player/{$player->ranking}');
         }
 
-        public function delete($player_id) {           
+    public function delete($player_id) {           
 
             $players = Player::orderBy('ranking', 'asc')->get();
             $player_to_delete = Player::find($player_id);
