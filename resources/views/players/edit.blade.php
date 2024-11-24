@@ -15,7 +15,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="name" name="name" value="{{$player->name}}">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="name" name="name" value="{{$player->name}}" required>
                 </div>
               </div>
             
@@ -26,7 +26,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="family_name" name="family_name" value="{{$player->family_name}}">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="family_name" name="family_name" value="{{$player->family_name}}" required>
                 </div>
               </div>
             
@@ -37,7 +37,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id="email" name="email" value="{{$player->email}}">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id="email" name="email" value="{{$player->email}}" required>
                 </div>
               </div>
             
@@ -48,7 +48,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="number" id="height" name="height" max="300" min="100" value="{{$player->height}}">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="number" id="height" name="height" max="300" min="100" value="{{$player->height}}" required>
                 </div>
               </div>
             
@@ -91,7 +91,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <textarea class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="briefing" name="briefing" rows="4" cols="10"> {{$player->briefing}}</textarea>
+                  <textarea class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="briefing" name="briefing" rows="4" cols="10" required> {{$player->briefing}} </textarea>
                   </div>
               </div>
 
@@ -103,6 +103,7 @@
                 </div>
                 <div class="md:w-2/3">
                   <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="file" id="picture_route" name="picture_route"">
+                  <p class="text-xs">(picture must be located at public/images)</p>
                 </div>
               </div>
               

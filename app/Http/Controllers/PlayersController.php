@@ -84,7 +84,8 @@ class PlayersController extends Controller
         $player->playing_hand = $request->playing_hand; 
         $player->backhand_style = $request->backhand_style;
         $player->briefing = $request->briefing;
-        $player->picture_route = "images/$request->picture";
+        $picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
+        $player->picture_route = $picture_path;
         //$player->created_at = $request->playing_hand;
         //$player->updated_at = $request->playing_hand;
 

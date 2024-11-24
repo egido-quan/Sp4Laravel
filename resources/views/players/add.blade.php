@@ -12,7 +12,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="name" name="name">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="name" name="name" required>
                 </div>
               </div>
             
@@ -23,7 +23,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="family_name" name="family_name">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" id="family_name" name="family_name" required>
                 </div>
               </div>
             
@@ -34,7 +34,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id="email" name="email">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id="email" name="email" required>
                 </div>
               </div>
             
@@ -45,7 +45,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="number" id="height" name="height" max="300" min="100">
+                  <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="number" id="height" name="height" max="300" min="100" required>
                 </div>
               </div>
             
@@ -86,7 +86,7 @@
                   </label>
                 </div>
                 <div class="md:w-2/3">
-                  <textarea class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="briefing" name="briefing" rows="4" cols="10" placeholder="Write your briefing..."></textarea>
+                  <textarea class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="briefing" name="briefing" rows="4" cols="10" placeholder="Write your briefing..." required>I love tennis</textarea>
   
                 </div>
               </div>
@@ -99,6 +99,7 @@
                 </div>
                 <div class="md:w-2/3">
                   <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="file" id="picture" name="picture">
+                  <p class="text-xs">(picture must be located at public/images)</p>
                 </div>
               </div>
               

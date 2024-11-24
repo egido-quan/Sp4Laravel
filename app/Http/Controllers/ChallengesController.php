@@ -86,10 +86,13 @@ class ChallengesController extends Controller
 
     public function save(Request $request) {
 
+        $player1_ranking = (int)explode(" ",$request->player1_ranking)[0];
+        $player2_ranking = (int)explode(" ",$request->player2_ranking)[0];
+
         $players = Player::orderBy('ranking')->get();
-        if ($request->player1_ranking === $request->player2_ranking) {
+        if ($player1_ranking === $player2_ranking) {
             $message = 'One player cannot challenge himself';
-        } elseif (abs($request->player1_ranking - $request->player2_ranking) > 3) {
+        } elseif (abs($player1_ranking - $player2_ranking) > 3) {
             $message = 'Cannot accept this challenge, sorry. A challenge is only allowed when ranking difference is 3 positions or lower';
         } elseif (($request->p1_set1 == 7 || $request->p2_set1 == 7) && abs($request->p1_set1 - $request->p2_set1) > 2) {
             $message = 'First set result is not correct';
@@ -139,13 +142,13 @@ class ChallengesController extends Controller
         }
 
         
-        $marcador = new Marcador($score, $request->player1_ranking, $request->player2_ranking);
-        $player1 = Player::where('ranking', $request->player1_ranking)->first();
-        $player2 = Player::where('ranking', $request->player2_ranking)->first();
-        if ($marcador->ganador() == max($request->player1_ranking, $request->player2_ranking)) {
-            $player1->ranking = $request->player2_ranking;
+        $marcador = new Marcador($score, $player1_ranking, $player2_ranking);
+        $player1 = Player::where('ranking', $player1_ranking)->first();
+        $player2 = Player::where('ranking', $player2_ranking)->first();
+        if ($marcador->ganador() == max($player1_ranking, $player2_ranking)) {
+            $player1->ranking = $player2_ranking;
             $player1->save();
-            $player2->ranking = $request->player1_ranking;
+            $player2->ranking = $player1_ranking;
             $player2->save();
             }
         
