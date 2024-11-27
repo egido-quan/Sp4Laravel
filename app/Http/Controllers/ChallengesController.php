@@ -99,15 +99,6 @@ class ChallengesController extends Controller
             [$request->p1_set1, $request->p2_set1, $request->p1_set2, $request->p2_set2] :
             [$request->p1_set1, $request->p2_set1, $request->p1_set2, $request->p2_set2, $request->p1_set3, $request->p1_set3];
         
-        $marcador = new Marcador($score, $player1_ranking, $player2_ranking);
-        $player1 = Player::where('ranking', $player1_ranking)->first();
-        $player2 = Player::where('ranking', $player2_ranking)->first();
-        if ($marcador->ganador() == max($player1_ranking, $player2_ranking)) {
-            $player1->ranking = $player2_ranking;
-            $player1->save();
-            $player2->ranking = $player1_ranking;
-            $player2->save();
-            }        
 
         $challenge = new Challenge();
 
@@ -121,6 +112,16 @@ class ChallengesController extends Controller
         $challenge->p2_set3 = ($request->p2_set3 == null) ? 0 : $request->p2_set3;
 
         $challenge->save();
+
+        $marcador = new Marcador($score, $player1_ranking, $player2_ranking);
+        $player1 = Player::where('ranking', $player1_ranking)->first();
+        $player2 = Player::where('ranking', $player2_ranking)->first();
+        if ($marcador->ganador() == max($player1_ranking, $player2_ranking)) {
+            $player1->ranking = $player2_ranking;
+            $player1->save();
+            $player2->ranking = $player1_ranking;
+            $player2->save();
+            } 
 
         $players = Player::orderBy('ranking')->get();        
         return view('players.index', ['players' => $players]);      
