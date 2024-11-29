@@ -14,6 +14,9 @@
         </tr>
     </thead>-->
     <tbody>
+        @if (count($challenges) == 0) 
+        <p class="text-2xl text-center">There are no challenges added to this player yet</p>                    
+        @endif
     @foreach ($challenges as $challenge)
         <tr class="">
             <td class="px-1 py-1">{{$challenge[10]}}</td>
