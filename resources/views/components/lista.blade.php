@@ -13,7 +13,28 @@
         <a title="home" href="{{asset('/')}}"><img class="size-16 hover:scale-125" src="{{ asset('images/Titulo.svg') }}"></a>
         <a href="{{asset('/')}}"><h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 hover:scale-125"> TENNIS CHALLENGE</h1></a>
     </div>
-    
+    <div class="flex ml-16  w-7/12 px-10 justify-evenly items-center">
+        <a href="{{asset('/')}}player/add">
+            <button type="button"  title="add player" class="my-10 text-base text-white bg-blue-300 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-3xl px-5 py-2.5 me-2 mb-2">
+                Add player
+            </button>
+        </a>
+        <a href="{{asset('/')}}challenges/add">
+            <button type="button" title="add challenge" class="my-10 text-base text-white bg-blue-300 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-3xl px-5 py-2.5 me-2 mb-2">
+                Add challenge
+            </button>
+        </a>
+        <a href="{{asset('/')}}player/find">
+            <button type="button" title="find player" class="my-10 text-base text-white bg-blue-300 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-3xl px-5 py-2.5 me-2 mb-2">
+                Search player  
+            </button>
+        </a>
+        <a href="{{asset('/')}}info">
+            <button type="button" title="info" class="my-10 text-base text-white bg-blue-300 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-3xl px-5 py-2.5 me-2 mb-2">
+                Info
+            </button>
+        </a>
+    </div>
 
         <section class = "flex mx-10 my-5">
         <div class="bg-gray-300 shadow-2xl h-[550px] w-3/5 p-10 mx-5 overflow-y-auto rounded-2xl">
