@@ -14,7 +14,7 @@
         <a href="{{asset('/')}}"><h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 hover:scale-125"> TENNIS CHALLENGE</h1></a>
     </div>
     <div class="flex ml-16  w-7/12 px-10 justify-evenly items-center">
-        <a href="{{asset('/')}}player/add">
+        <a href="{{asset('/')}}player/create">
             <button type="button"  title="add player" class="my-10 text-base text-white bg-blue-300 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-3xl px-5 py-2.5 me-2 mb-2">
                 Add player
             </button>
@@ -55,10 +55,10 @@
                 <tbody>
                 @foreach ($players as $player)
                     <tr class="">
-                        <td class="text-xl font-bold px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->ranking}}</a></td>
-                        <td class="px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->name}}</a></td>
-                        <td class="px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}/show">{{$player->family_name}}</a></td>
-                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}/show" ><img title="player info" class="h-10 w-10 hover:scale-125 rounded-lg" src="{{ asset($player->picture_route) }}"></a></td>
+                        <td class="text-xl font-bold px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}">{{$player->ranking}}</a></td>
+                        <td class="px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}">{{$player->name}}</a></td>
+                        <td class="px-2 py-1"><a title="player info" href="{{asset('/')}}player/{{$player->ranking}}">{{$player->family_name}}</a></td>
+                        <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->ranking}}" ><img title="player info" class="h-10 w-10 hover:scale-125 rounded-lg" src="{{ asset($player->picture_route) }}"></a></td>
 
                         <td class="px-2 py-1"><a href="{{asset('/')}}challenges/{{$player->id}}/show"><img title="show challenges" class="size-7 hover:scale-150" src="{{ asset('images/partido.png') }}"></a></td>
                         <td class="px-2 py-1"><a href="{{asset('/')}}player/{{$player->id}}/edit" ><img title="edit" class="size-5 hover:scale-150" src="{{ asset('images/modificar.png') }}"></a></td>
