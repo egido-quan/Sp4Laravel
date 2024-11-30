@@ -3,7 +3,7 @@
         
       <x-lista :players="$players" />
         <div class="w-2/5 bg-blue-200 shadow-2xl h-auto p-10 mx-5 rounded-2xl flex flex-col items-center">
-            <form class="w-full max-w-sm"  id="nuevo" name="nuevo" method="POST"  action="{{asset('/')}}player/save" autocomplete="off">
+            <form class="w-full max-w-sm"  id="nuevo" name="nuevo" method="POST"  action="{{asset('/')}}player/save" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 <div class="md:flex md:items-center mb-6">
                 <div class="md:w-1/3">
@@ -99,7 +99,6 @@
                 </div>
                 <div class="md:w-2/3">
                   <input class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="file" id="picture" name="picture">
-                  <p class="text-xs">(picture must be located at public/images)</p>
                 </div>
               </div>
               
