@@ -19,7 +19,7 @@ class PlayersController extends Controller
     ]);
     }
 
-    public function show∫($ranking) {
+    public function show($ranking) {
         $players = Player::orderBy('ranking')->get();
         $player = Player::where('ranking', $ranking)->first();
         return view('players.player', [
@@ -30,6 +30,7 @@ class PlayersController extends Controller
 
     public function find() {
         $players = Player::orderBy('ranking')->get();
+
         return view('players.find', [
             'players' => $players
     ]);
