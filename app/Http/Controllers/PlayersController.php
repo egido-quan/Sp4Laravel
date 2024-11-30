@@ -19,7 +19,7 @@ class PlayersController extends Controller
     ]);
     }
 
-    public function show($ranking) {
+    public function show∫($ranking) {
         $players = Player::orderBy('ranking')->get();
         $player = Player::where('ranking', $ranking)->first();
         return view('players.player', [
@@ -84,25 +84,17 @@ class PlayersController extends Controller
         $player->playing_hand = $request->playing_hand; 
         $player->backhand_style = $request->backhand_style;
         $player->briefing = $request->briefing;
-        //$picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
         if (!$request->hasFile('picture')) {
-            $picture_path = 'images/' . "player.png";
-            $player->picture_route = $picture_path;
+            $player->picture_route = 'images/' . "player.png";
         } else {
             $fileName = time() . '.' . $request->picture->extension();
-            $picture_path = 'images/' . $fileName;
-            $request->picture->move(public_path('images'), $fileName);
-            
-            $player->picture_route = $picture_path;
+
+            $request->picture->move(public_path('images'), $fileName);            
+            $player->picture_route = 'images/' . $fileName;
         }
-        //$player->created_at = $request->playing_hand;
-        //$player->updated_at = $request->playing_hand;
 
         $player->save();
         $players = Player::orderBy('ranking')->get();
-
-        //return redirect ('/');
-
 
         return view('players.player', [
             'player' => $player,
@@ -130,16 +122,14 @@ class PlayersController extends Controller
         $player->playing_hand = $request->playing_hand; 
         $player->backhand_style = $request->backhand_style;
         $player->briefing = $request->briefing;
-        $fileName = time() . '.' . $request->picture->extension();
-        $picture_path = 'images/' . $fileName;
-        $request->picture->move(public_path('images'), $fileName);
-        //$picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
-        $player->picture_route = $picture_path;
-        //$player->created_at = $request->playing_hand;
-        //$player->updated_at = $request->playing_hand;
-
-        //$player->created_at = $request->playing_hand;
-        //$player->updated_at = $request->playing_hand;
+        if (!$request->hasFile('picture')) {
+            $picture_path = $player->picture_route;
+        } else {
+            $fileName = time() . '.' . $request->picture->extension();
+            $picture_path = 'images/' . $fileName;
+            $request->picture->move(public_path('images'), $fileName);
+        }            
+            $player->picture_route = $picture_path;        
 
         $player->save();
 
@@ -150,7 +140,6 @@ class PlayersController extends Controller
             'players' => $players
         ]);
 
-        //return redirect ('/player/{$player->ranking}');
         }
 
     public function destroy($player_id) {           
