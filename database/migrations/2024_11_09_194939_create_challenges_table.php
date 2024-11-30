@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player1_id')->constrained('players')->onUpdate('cascade');
-            $table->foreignId('player2_id')->constrained('players')->onUpdate('cascade');
+            $table->foreignId('player1_id');
+            $table->foreignId('player2_id');
+            //$table->foreignId('player1_id')->constrained('players')->onUpdate('cascade');
+            //$table->foreignId('player2_id')->constrained('players')->onUpdate('cascade');
             $table->integer('p1_set1');
             $table->integer('p1_set2');
             $table->integer('p1_set3')->nullable;

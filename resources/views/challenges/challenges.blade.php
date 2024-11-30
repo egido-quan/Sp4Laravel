@@ -20,11 +20,23 @@
     @foreach ($challenges as $challenge)
         <tr class="">
             <td class="px-1 py-1">{{$challenge[10]}}</td>
+            @if ($challenge[1] == "")
+                @php
+                    $challenge[0] = "Deleted";
+                    $challenge[1] = "player";
+                @endphp
+            @endif
             <td class="px-1 py-1">{{$challenge[0]}}</td>
             <td class="px-1 py-1"> {{$challenge[1]}}</td>
             <td class="px-1 py-1"> {{$challenge[4]}} - {{$challenge[7]}}</td>
             <td class="px-1 py-1"> {{$challenge[5]}} - {{$challenge[8]}}</td>
             <td class="px-1 py-1"> {{$challenge[6]}} - {{$challenge[9]}}</td>
+            @if ($challenge[3] == "")
+                @php
+                    $challenge[2] = "Deleted";
+                    $challenge[3] = "player";
+                @endphp
+            @endif
             <td class="px-1 py-1">{{$challenge[2]}}</td>
             <td class="px-1 py-1"> {{$challenge[3]}}</td>
 

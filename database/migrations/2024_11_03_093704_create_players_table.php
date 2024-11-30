@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('ranking');
             $table->string('email')->unique();
             $table->integer('height');
-            $table->string('playing_hand');
-            $table->string('backhand_style');
+            $table->enum('playing_hand', ['left', 'right']);
+            $table->enum('backhand_style', ['one hand', 'two hands']);
             $table->text('briefing');
             $table->string('picture_route')->nullable;
             $table->timestamps();

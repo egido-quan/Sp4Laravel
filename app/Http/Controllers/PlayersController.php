@@ -84,8 +84,17 @@ class PlayersController extends Controller
         $player->playing_hand = $request->playing_hand; 
         $player->backhand_style = $request->backhand_style;
         $player->briefing = $request->briefing;
-        $picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
-        $player->picture_route = $picture_path;
+        //$picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
+        if (!$request->hasFile('picture')) {
+            $picture_path = 'images/' . "player.png";
+            $player->picture_route = $picture_path;
+        } else {
+            $fileName = time() . '.' . $request->picture->extension();
+            $picture_path = 'images/' . $fileName;
+            $request->picture->move(public_path('images'), $fileName);
+            
+            $player->picture_route = $picture_path;
+        }
         //$player->created_at = $request->playing_hand;
         //$player->updated_at = $request->playing_hand;
 
@@ -121,7 +130,13 @@ class PlayersController extends Controller
         $player->playing_hand = $request->playing_hand; 
         $player->backhand_style = $request->backhand_style;
         $player->briefing = $request->briefing;
-        $player->picture_route = ($request->picture_route == "") ? $player->picture_route : "images/$request->picture_route";
+        $fileName = time() . '.' . $request->picture->extension();
+        $picture_path = 'images/' . $fileName;
+        $request->picture->move(public_path('images'), $fileName);
+        //$picture_path = ($request->picture == "") ? "images/player.png" : "images/$request->picture";
+        $player->picture_route = $picture_path;
+        //$player->created_at = $request->playing_hand;
+        //$player->updated_at = $request->playing_hand;
 
         //$player->created_at = $request->playing_hand;
         //$player->updated_at = $request->playing_hand;
