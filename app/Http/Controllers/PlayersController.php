@@ -19,7 +19,7 @@ class PlayersController extends Controller
     ]);
     }
 
-    public function player($ranking) {
+    public function show($ranking) {
         $players = Player::orderBy('ranking')->get();
         $player = Player::where('ranking', $ranking)->first();
         return view('players.player', [
@@ -52,12 +52,12 @@ class PlayersController extends Controller
         
     }
 
-    public function add() {
+    public function create() {
         $players = Player::orderBy('ranking')->get();
         return view('players.add', ['players' => $players]);
     }
 
-    public function save(Request $request) {
+    public function store(Request $request) {
         $players = Player::orderBy('ranking')->get();
         $player = new Player;
 
@@ -153,7 +153,7 @@ class PlayersController extends Controller
         //return redirect ('/player/{$player->ranking}');
         }
 
-    public function delete($player_id) {           
+    public function destroy($player_id) {           
 
             $players = Player::orderBy('ranking', 'asc')->get();
             $player_to_delete = Player::find($player_id);
